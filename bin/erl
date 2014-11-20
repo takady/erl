@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 require 'erl'
 
-Erl::Command.run(ARGV)
+Erl::Command.new(ARGV).run

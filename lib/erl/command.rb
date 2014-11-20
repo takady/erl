@@ -10,8 +10,8 @@ module Erl
       @procs = {}
     end
 
-    def self.run(argv)
-      new(argv).repl
+    def run
+      repl
     end
 
     private
@@ -29,6 +29,10 @@ module Erl
       puts "\nBye"
     rescue => e
       abort "Error: #{e.message}"
+    end
+
+    def execute_child(query)
+      Process.fork { @command }
     end
 
     def execute(query)
