@@ -15,20 +15,25 @@ module Erl
     private
 
     def repl
-      PTY.spawn(@command) do |r, w, pid|
-        w.sync = true
-        $expect_verbose = true
+      r, w, pid = PTY.spawn(@command)
+      w.sync = true
 
-        loop do
-          r.expect('mysql') do
-            buf = Readline.readline('> ', true)
-            w.print "#{buf}\n"
-            raise if %w(exit quit).include? buf
+      loop do
+        r.expect('mysql>') do |line|
+          out = line.first.split("\n")
+          out.each_with_index do |o, index|
+            puts o unless index == out.length - 1
           end
+
+          buf = Readline.readline('mysql> ', true)
+          until buf =~ /;/ do
+            buf += Readline.readline('> ', true)
+          end
+
+          w.print "#{buf}\n"
+          raise Interrupt.new if %w(exit; quit;).include? buf
         end
       end
-    rescue StandardError
-      puts "\nBye"
     rescue Interrupt
       puts "\nBye"
     rescue => e
