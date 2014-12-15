@@ -19,15 +19,15 @@ module Erl
       w.sync = true
 
       loop do
-        r.expect('mysql>') do |line|
+        r.expect('mysql> ') do |line|
           out = line.first.split("\n")
           out.each_with_index do |o, index|
             puts o unless index == out.length - 1
           end
 
-          buf = Readline.readline('mysql> ', true)
-          until buf =~ /;/ do
-            buf += Readline.readline('> ', true)
+          buf = Readline.readline(out.last, true)
+          until buf =~ /;/ || buf.nil? do
+            buf += Readline.readline('-> ', true)
           end
 
           w.print "#{buf}\n"
