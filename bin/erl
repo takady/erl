@@ -1,4 +1,11 @@
 #!/usr/bin/env ruby
 require 'erl'
+require 'optparse'
 
-Erl::Command.new(ARGV).run
+opt = OptionParser.new
+opts = {}
+opt.on('-h', '--history history file path') {|v| opts[:h] = v }
+opt.parse!(ARGV)
+
+Erl::Command.new(ARGV.join(' '), history: opts[:h]).run
+
