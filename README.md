@@ -1,10 +1,10 @@
 # erl
 
-executable readline wrapper
+a readline wrapper
 
 ## Description
 
-`erl` is not only GNU readline wrapper. `erl` enable you to execute multiple queries from one console. And you can see all executed query status and results anytime you want.
+`erl` is a GNU readline wrapper.
 
 ## Installation
 
@@ -23,32 +23,14 @@ $ erl [options] <command>
 You can set some options:
 
 ```
-−f <file>  # Split file into words and add them to the completion word list.
-−i         # Ignore case when completing.
+-h <file>  # history file path
 ```
 
 ## Example
 
 ```
-$ erl -m mysql -uroot
-mysql> select count(*) from table1;
-1: select count(*) from table1;
-
-mysql> select count(*) from table2;
-2: select count(*) from table2;
-
-mysql> ls
-1: select count(*) from table1;
-2: select count(*) from table2;
-
-mysql>
-
-# when any query has finished, star is shown on list.
-mysql> ls
-*1: select count(*) from table1;
-2: select count(*) from table2;
-
-mysql> cat 1
+$ erl mysql -uroot -h ~/.erl_history
+mysql> select count(*) from foo;
 +----------+
 | count(*) |
 +----------+
@@ -56,11 +38,8 @@ mysql> cat 1
 +----------+
 1 row in set (0.01 sec)
 
-mysql> rm 1
-
-mysql> ls
-2: select count(*) from table2;
-
+mysql> exit;
+Bye
 ```
 
 ## Contributing

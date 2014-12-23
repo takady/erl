@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Erl::VERSION
   spec.authors       = ["Yuichi Takada"]
   spec.email         = ["takadyuichi@gmail.com"]
-  spec.summary       = "executable readline wrapper"
-  spec.description   = "erl is not only GNU readline wrapper. erl enable you to execute multiple queries from one console."
+  spec.summary       = "a readline wrapper"
+  spec.description   = "a readline wrapper"
   spec.homepage      = "https://github.com/takady/erl"
   spec.license       = "MIT"
 
